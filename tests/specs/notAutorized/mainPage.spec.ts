@@ -1,27 +1,25 @@
-import test from '@playwright/test' 
-import { Mainpage } from '../../pages/MainPages'
+import { test, expect } from '../../fixtures/mainPageFixtures' 
 
-test.describe('Тесты главной страницы', async() => {
 
-test ('Тест главной страницы', async({ page }) => {
-  const mainpage = new Mainpage(page)
-  await mainpage.open()
-}) 
-test ('Тесты доступности элементов хедера', async({ page }) => {
-  const mainpage = new Mainpage(page)
-  await mainpage.open()
-  await mainpage.headerHasCorrectSnapshot()
+test ('Тесты доступности элементов хедера', async({ mainPage }) => {
+  await mainPage.headerHasCorrectSnapshot()
 })
-test ('Тесты доступности элементов табой категорий', async({ page }) => {
-  const mainpage = new Mainpage(page)
-  await mainpage.open()
-  await mainpage.categoriesTabslocatorSnapshot()
+test ('Тесты доступности элементов табой категорий', async({ mainPage }) => {
+  await mainPage.categoriesTabslocatorSnapshot()
+})
+test ('Тесты доступности элементов навигации', async({ mainPage }) => {
+  await mainPage.menuLocatorSnapshot()
+})
+test ('Проверка доступности списка добавления контента', async({ mainPage }) => {
+  await mainPage.openAddPopupList()
+  await mainPage.addpopupListAreaShapshot()
+})
+test ('Проверка доступности попап уведомлений', async({ mainPage }) => {
+  await mainPage.openNotificationPopup()
+  await mainPage.NotificationPopupAreaShapshot()
+})
+test ('Проверка доступности модуля регистрации', async({ mainPage }) => {
+  await mainPage.openAutorizationModal()
+  await mainPage.AutorizationModalAreaShapshot()
 })
 
-test ('Тесты доступности элементов ', async({ page }) => {
-  const mainpage = new Mainpage(page)
-  await mainpage.open()
-  await mainpage.menuLocatorSnapshot()
-})
-
-})

@@ -2,10 +2,10 @@ import { Locator, Page } from "@playwright/test"
 
 export class BasePage {
   readonly page: Page
- private readonly cookiePopup: Locator
- private readonly cookieButtonOk: Locator
- private readonly popupRegistration: Locator
- private readonly buttonclosePopupRegistration: Locator
+  readonly cookiePopup: Locator
+  readonly cookieButtonOk: Locator
+  readonly popupRegistration: Locator
+  readonly buttonclosePopupRegistration: Locator
 
   
   constructor(page: Page) {
@@ -15,10 +15,20 @@ export class BasePage {
     this.popupRegistration = this.page.locator('.wdp-popup-module__popup ')
     this.buttonclosePopupRegistration = this.page.getByRole('button', { name: 'Закрыть' })
   }
-   async closeCookiePopup() {
-    if (this.cookiePopup) { await this.cookieButtonOk.click()} else { console.log('Продолжаем') }}
     
-   async closePopupRegistration() {
-    if (this.popupRegistration) { await this.buttonclosePopupRegistration.click()} else { console.log('Продолжаем') } }
-   
+    async closeCookieWindow({ expect }) {
+      try {
+        await expect(this.cookiePopup).toBeVisible()
+        await this.cookieButtonOk.click()
+      }
+       catch{}
+    }
+    
+  async closePopupRegistration({ expect }) {
+    try {
+      await expect(this.popupRegistration).toBeVisible()
+      await this.buttonclosePopupRegistration.click()
+    }
+     catch{}  
+  } 
 }
